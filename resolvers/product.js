@@ -9,10 +9,14 @@ const Product = {
 
   reviews: (parent, args, context) => {
     const { reviews } = context;
+    const { id } = parent;
+    console.log(JSON.stringify(reviews), parent);
 
-    const { id: productId } = parent;
-
-    return reviews.filter((review) => review.productId === parseInt(productId));
+    const result = reviews.filter(
+      (review) => parseInt(review.productId) === id
+    );
+    console.log(result);
+    return result;
   },
 };
 
