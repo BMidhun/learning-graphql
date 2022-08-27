@@ -7,22 +7,17 @@ const typeDefs = gql`
 
   type Car { }
 
-  // Removing GroupMembership to avoid exposure of implementation detail. Instead mapping Car entity to the Group
+  // Removing Manual and Automatic Group types to remove low-level implementation which are not concerning the client.
 
-  type ManualGroup {
+  type Group {
     Image
     [Car]
+    [GroupFeatures]
   }
 
-  // Removing GroupMembership to avoid exposure of implementation detail. Instead mapping Car entity to the Group
-
-  type AutomaticGroup {
-   Image
-   [Car]
-   [AutomaticGroupFeatures]
-  }
-
-  type AutomaticGroupFeatures {  }
+  // Also renaming the AutomaticGroupFeatures to GroupFeatures. If groupfeatures are empty then it is maualgroup and if not they are automatic group.
+ 
+  type GroupFeatures {  }
 
   
 `;
