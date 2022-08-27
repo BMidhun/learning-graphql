@@ -7,27 +7,22 @@ const typeDefs = gql`
 
   type Car { }
 
-  // Manual Group has a relationship with Image and GroupMembership
+  // Removing GroupMembership to avoid exposure of implementation detail. Instead mapping Car entity to the Group
 
   type ManualGroup {
     Image
-    [GroupMembership]
+    [Car]
   }
 
-  // Automatic Group has a relationship with Image, GroupMembership and AutomaticGroupFeature
+  // Removing GroupMembership to avoid exposure of implementation detail. Instead mapping Car entity to the Group
 
   type AutomaticGroup {
    Image
-   [GroupMembership]
+   [Car]
    [AutomaticGroupFeatures]
   }
 
   type AutomaticGroupFeatures {  }
 
-  // GroupMemebership has a relationship with Group and Car
-
-  type GroupMembership {
-    Group
-    Car
-  }
+  
 `;
