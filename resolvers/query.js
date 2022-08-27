@@ -2,7 +2,7 @@ const Query = {
   products: (parent, args, context) => {
     const { filter } = args;
 
-    let filteredProducts = [...context.products];
+    let filteredProducts = [...context.db.products];
 
     if (filter) {
       const { isOutofStock, avgRating } = filter;
@@ -17,7 +17,7 @@ const Query = {
           const productId = product.id;
           let totalRating = 0;
           let count = 0;
-          context.reviews.forEach((current) => {
+          context.db.reviews.forEach((current) => {
             if (current.productId === productId) {
               totalRating += current.rating;
               count++;
@@ -32,11 +32,11 @@ const Query = {
 
     return filteredProducts;
   },
-  categories: (parent, args, context) => context.categories,
+  categories: (parent, args, context) => context.db.categories,
   product: (parent, args, context) => {
     let { id } = args;
 
-    const product = context.products.find(
+    const product = context.db.products.find(
       (product) => product.id === parseInt(id)
     );
 
@@ -46,7 +46,9 @@ const Query = {
   category: (parent, args, context) => {
     let { id } = args;
 
-    return context.categories.find((category) => category.id === parseInt(id));
+    return context.db.categories.find(
+      (category) => category.id === parseInt(id)
+    );
   },
 };
 

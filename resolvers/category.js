@@ -3,7 +3,7 @@ const Category = {
     const categoryId = parent.id;
     const { filter } = args;
 
-    let filteredProducts = context.products.filter(
+    let filteredProducts = context.db.products.filter(
       (product) => product.categoryId === parseInt(categoryId)
     );
 
@@ -20,7 +20,7 @@ const Category = {
           const productId = product.id;
           let totalRating = 0;
           let count = 0;
-          context.reviews.forEach((current) => {
+          context.db.reviews.forEach((current) => {
             if (current.productId === productId) {
               totalRating += current.rating;
               count++;

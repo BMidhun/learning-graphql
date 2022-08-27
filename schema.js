@@ -8,8 +8,8 @@ const typeDefs = gql`
     price: Float
     variant: [String!]!
     sizes: [Int!]!
-    categoryId: ID!
-    category: Category!
+    categoryId: ID
+    category: Category
     reviews: [Review!]!
   }
 
@@ -44,6 +44,7 @@ const typeDefs = gql`
     addCategory(input: addCategoryInput!): Category!
     addProduct(input: addProductInput!): Product!
     addReview(input: addReviewInput!): Review!
+    deleteCategory(id: ID!): Boolean!
   }
 
   input addCategoryInput {

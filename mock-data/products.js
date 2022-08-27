@@ -16,7 +16,7 @@ const products = [
     price: 4200.44,
     variant: ["Black Edition", "Thor Edition"],
     categoryId: 1,
-    sizes: [4.5],
+    sizes: [4],
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const products = [
     price: 45666.44,
     variant: ["Pro Game Edition", "Avengers Edition"],
     categoryId: 3,
-    sizes: [4.5],
+    sizes: [4],
   },
 ];
 

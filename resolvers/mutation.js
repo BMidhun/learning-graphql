@@ -2,40 +2,60 @@ const Mutation = {
   addCategory: (parent, args, context) => {
     console.log(args);
     const { input } = args;
-    const { categories } = context;
+    const { db } = context;
     const newCategory = {
-      id: categories[categories.length - 1].id + 1,
+      id: db.categories[db.categories.length - 1].id + 1,
       ...input,
     };
 
-    categories.push(newCategory);
+    db.categories.push(newCategory);
 
-    return categories[categories.length - 1];
+    return db.categories[categories.length - 1];
   },
 
   addProduct: (parent, args, context) => {
     const inputProduct = args.input;
-    const { products } = context;
+    const { db } = context;
 
     const product = {
-      id: products[products.length - 1].id + 1,
+      id: db.products[db.products.length - 1].id + 1,
       ...inputProduct,
     };
 
-    products.push(product);
+    db.products.push(product);
 
-    return products[products.length - 1];
+    return db.products[db.products.length - 1];
   },
 
   addReview: (parent, args, context) => {
     const inputReview = args.input;
-    const { reviews } = context;
+    const { db } = context;
 
-    const review = { id: reviews[reviews.length - 1].id + 1, ...inputReview };
+    const review = {
+      id: db.reviews[db.reviews.length - 1].id + 1,
+      ...inputReview,
+    };
 
-    reviews.push(review);
+    db.reviews.push(review);
 
-    return reviews[reviews.length - 1];
+    return db.reviews[db.reviews.length - 1];
+  },
+
+  deleteCategory: (parent, args, context) => {
+    const { id } = args;
+    const { db } = context;
+    db.categories = db.categories.filter(
+      (category) => category.id !== parseInt(id)
+    );
+
+    db.products = db.products.map((product) => {
+      if (product.categoryId === parseInt(id)) {
+        product.categoryId = null;
+      }
+      return product;
+    });
+
+    return true;
   },
 };
 

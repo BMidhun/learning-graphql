@@ -1,11 +1,7 @@
-import { products } from "./mock-data/products.js";
-import { categories } from "./mock-data/categories.js";
-import { reviews } from "./mock-data/reviews.js";
+import db from "./mock-data/db.js";
 
 const context = {
-  categories,
-  products,
-  reviews,
+  db,
 };
 
 export default context;
