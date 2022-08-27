@@ -5,37 +5,29 @@ const typeDefs = gql`
     cars: [Car!]!
   }
 
-  type Car {
-    id: ID!
-    name: String!
-    color: String!
-    make: String!
-  }
+  type Car { }
+
+  // Manual Group has a relationship with Image and GroupMembership
 
   type ManualGroup {
-    id: ID!
-    name: String!
-    htmlBody: String!
-    imageId: ID!
-    memeberships: [GroupMembership!]!
+    Image
+    [GroupMembership]
   }
+
+  // Automatic Group has a relationship with Image, GroupMembership and AutomaticGroupFeature
 
   type AutomaticGroup {
-    id: ID!
-    name: String!
-    htmlBody: String
-    imageId: ID!
-    feature: [AutomaticGroupFeature!]!
-    applyFeaturesSeparately: Boolean!
-    memeberships: [GroupMembership!]!
+   Image
+   [GroupMembership]
+   [AutomaticGroupFeatures]
   }
 
-  type AutomaticGroupFeature {
-    column: String!
-  }
+  type AutomaticGroupFeatures {  }
+
+  // GroupMemebership has a relationship with Group and Car
 
   type GroupMembership {
-    groupId: ID!
-    carId: ID!
+    Group
+    Car
   }
 `;
