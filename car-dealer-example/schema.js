@@ -7,7 +7,7 @@ const typeDefs = gql`
 
   type Car { }
 
-  // Adding attributes to the schema
+  // Removing features and applyFeaturesSeparately from Group and holding them into a subobject called GroupFeaturesSet
 
   type Group {
     id:ID!
@@ -15,6 +15,10 @@ const typeDefs = gql`
     bodyHtml:String!
     imageId:ID!
     cars:[Car!]!
+    featureSet:GroupFeatureSet
+  }
+
+  type GroupFeatureSet {
     features:[GroupFeatures!]!
     applyFeaturesSeparately:Boolean!
   }
