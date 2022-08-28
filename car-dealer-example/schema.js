@@ -28,10 +28,18 @@ const typeDefs = gql`
     applyFeaturesSeparately:Boolean!
   }
 
-  
+  // Introducing enum to replace String representation for GroupFeatures
  
   type GroupFeatures { 
-    feature : String!
+    feature : GroupFeatureFields!
+   }
+
+   enum GroupFeatureFields{
+    INCLINE_ENGINE
+    FOUR_CYLINDER_ENGINE
+    TWIN_CYLINDER_ENGINE
+    RED_PAINT
+    BLACK_PAINT
    }
 
   
