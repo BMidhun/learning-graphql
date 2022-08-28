@@ -7,14 +7,14 @@ const typeDefs = gql`
 
   type Car { }
 
-  // Removing features and applyFeaturesSeparately from Group and holding them into a subobject called GroupFeaturesSet
+  // Add pagination capability to cars in a Group. skip input will skip the documents and take will take the amount of cars we need to provide. 
 
   type Group {
     id:ID!
     name:String!
     bodyHtml:String!
     imageId:ID!
-    cars:[Car!]!
+    cars(skip:Int!, take:Int!):[Car!]!
     featureSet:GroupFeatureSet
   }
 
@@ -23,7 +23,7 @@ const typeDefs = gql`
     applyFeaturesSeparately:Boolean!
   }
 
-  // Adding attributes to the schema
+  
  
   type GroupFeatures { 
     feature : String!
