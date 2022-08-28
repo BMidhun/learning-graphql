@@ -7,13 +7,14 @@ const typeDefs = gql`
 
   type Car { }
 
-  // Renaming bodyHtml to description
+  // Introducing hasCar attribute to implement the business logic of finding a car inside of a group.
 
   type Group {
     id:ID!
     name:String!
     description:String!
     image:Image!
+    hasCar(id:ID!):Boolean!
     cars(skip:Int!, take:Int!):[Car!]!
     featureSet:GroupFeatureSet
   }
