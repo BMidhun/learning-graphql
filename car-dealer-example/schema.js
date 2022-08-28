@@ -15,6 +15,8 @@ const typeDefs = gql`
     update // Update scalar fields in a type
     publish // mutation to update the group status as published
     unpublish // mutation to update the group status as unpublished
+    createCars // mutation to create cars into a group
+    removeCars // mutation to remove multiple cars from a group
   }
 
   type Group {
