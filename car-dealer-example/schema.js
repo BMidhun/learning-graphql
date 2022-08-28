@@ -18,7 +18,17 @@ const typeDefs = gql`
     groupUnPublish(groupId:ID!)
     groupAddCars(groupId:ID!, carId:ID!)
     groupRemoveCars(groupId:ID!, carId:ID!)
-    groupCreate(name:String! , description:String! , image:imageInput , carId: ID! , featureSet: GroupFeatureFields)
+    groupCreate(input:groupInput!)
+    groupUpdate(input:groupInput!)
+  }
+
+
+  input groupInput {
+    name:String  
+    description:String  
+    image:imageInput  
+    carId: ID 
+    featureSet: GroupFeatureFields
   }
 
   input imageInput {
