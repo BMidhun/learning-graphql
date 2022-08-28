@@ -10,13 +10,19 @@ const typeDefs = gql`
   // Mutations 
 
   type Mutation {
-    create
-    delete
-    update // Update scalar fields in a type
-    publish // mutation to update the group status as published
-    unpublish // mutation to update the group status as unpublished
-    createCars // mutation to create cars into a group
-    removeCars // mutation to remove multiple cars from a group
+
+    carCreate(name:String!, make:String!, color:String! )
+
+    groupDelete(groupId:ID!)
+    groupPublish(groupId:ID!)
+    groupUnPublish(groupId:ID!)
+    groupAddCars(groupId:ID!, carId:ID!)
+    groupRemoveCars(groupId:ID!, carId:ID!)
+    groupCreate(name:String! , description:String! , image:imageInput , carId: ID! , featureSet: GroupFeatureFields)
+  }
+
+  input imageInput {
+    url:String!
   }
 
   type Group {
