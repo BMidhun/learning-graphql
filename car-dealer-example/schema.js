@@ -19,7 +19,17 @@ const typeDefs = gql`
     groupAddCars(groupId:ID!, carId:ID!)
     groupRemoveCars(groupId:ID!, carId:ID!)
     groupCreate(input:groupInput!)
-    groupUpdate(input:groupInput!)
+    groupUpdate(input:groupInput!): GroupUpdateResponse!
+  }
+
+  type GroupUpdateResponse {
+    userErrors: [UserErrors!]!
+    group:Group // here Group is nullable since if there is any error, no group is returned.
+  }
+
+  type UserErrors{
+    message:String!
+    field:[String!]!
   }
 
 
