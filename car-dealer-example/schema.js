@@ -7,17 +7,23 @@ const typeDefs = gql`
 
   type Car { }
 
-  // Removing Manual and Automatic Group types to remove low-level implementation which are not concerning the client.
+  // Adding attributes to the schema
 
   type Group {
-    Image
-    [Car]
-    [GroupFeatures]
+    id:ID!
+    name:String!
+    bodyHtml:String!
+    imageId:ID!
+    cars:[Car!]!
+    features:[GroupFeatures!]!
+    applyFeaturesSeparately:Boolean!
   }
 
-  // Also renaming the AutomaticGroupFeatures to GroupFeatures. If groupfeatures are empty then it is maualgroup and if not they are automatic group.
+  // Adding attributes to the schema
  
-  type GroupFeatures {  }
+  type GroupFeatures { 
+    feature : String!
+   }
 
   
 `;
