@@ -7,7 +7,15 @@ const typeDefs = gql`
 
   type Car { }
 
-  // Introducing hasCar attribute to implement the business logic of finding a car inside of a group.
+  // Mutations 
+
+  type Mutation {
+    create
+    delete
+    update // Update scalar fields in a type
+    publish // mutation to update the group status as published
+    unpublish // mutation to update the group status as unpublished
+  }
 
   type Group {
     id:ID!
@@ -29,7 +37,7 @@ const typeDefs = gql`
     applyFeaturesSeparately:Boolean!
   }
 
-  // Introducing enum to replace String representation for GroupFeatures
+  
  
   type GroupFeatures { 
     feature : GroupFeatureFields!
