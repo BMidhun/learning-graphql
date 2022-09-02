@@ -5,6 +5,19 @@ const typeDefs = gql`
     hello: String!
  }
 
+ type Mutation {
+   postCreate(title:String!, content:String!):PostCreateResponse
+ }
+
+ type ErrorMessage {
+   message: String!
+ }
+
+ type PostCreateResponse {
+   errors: [ErrorMessage!]!
+   post:Post
+ }
+
  type Profile {
    id:ID!
    bio:String!
