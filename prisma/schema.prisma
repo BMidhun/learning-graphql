@@ -9,3 +9,29 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Post {
+  id          Int           @id @default(autoincrement())
+  title       String
+  content     String
+  published   Boolean
+  createdAt   DateTime      @default(now()) // From the schema we are letting prisma know that when a post record is created at the table, the createdAt field must be filled automatically with the current data and time
+  updatedAt   DateTime      @updatedAt // From the schema we are letting prisma know that when a post is created/updated, automatically fill the column updatedAt with data and time of updation        
+}
+
+model User {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  name        String?
+  password    String
+  createdAt   DateTime      @default(now()) 
+  updatedAt   DateTime      @updatedAt
+}
+
+
+model Profile {
+    id          Int           @id @default(autoincrement())
+    bio         String
+    createdAt   DateTime      @default(now()) 
+    updatedAt   DateTime      @updatedAt
+}
