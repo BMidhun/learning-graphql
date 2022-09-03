@@ -9,10 +9,17 @@ const typeDefs = gql`
    postCreate(input:PostInput!):PostPayloadResponse
    postUpdate(postId: ID!,input:PostInput!):PostPayloadResponse
    postDelete(postId:ID!):PostPayloadResponse
-   signUp(email:String!, password:String! name:String!, bio:String!):SignUpPayloadResponse
+   signUp(credentials:CredentialInput!, name:String!, bio:String!):SignUpSignInPayloadResponse
+   signIn(credentials:CredentialInput!):SignUpSignInPayloadResponse
  }
 
- type SignUpPayloadResponse {
+
+ input CredentialInput {
+    email:String
+    password:String
+ }
+
+ type SignUpSignInPayloadResponse {
   errors: [ErrorMessage!]!
   token: String
  }

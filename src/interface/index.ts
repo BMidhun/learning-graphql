@@ -16,9 +16,13 @@ interface postUpdateArgs extends ICreateUpdatePostArgs {
     postId: string
 }
 
-interface ISignUpArgs {
+interface ICredential{
   email:string
   password:string
+}
+
+interface ISignUpArgs {
+  credentials:ICredential
   bio:string
   name:string
 }
@@ -28,9 +32,9 @@ interface IPostPayloadResponse {
   post: Post | null;
 }
 
-interface ISignUpPayloadResponse {
+interface ISignUpSignInPayloadResponse {
   errors: { message: string }[];
   token: string | null;
 }
 
-export { IContext, ICreateUpdatePostArgs, IPostPayloadResponse, postUpdateArgs, ISignUpArgs, ISignUpPayloadResponse};
+export { IContext, ICreateUpdatePostArgs, IPostPayloadResponse, postUpdateArgs, ISignUpArgs, ISignUpSignInPayloadResponse, ICredential};
