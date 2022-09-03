@@ -1,5 +1,7 @@
+import { getAllPosts } from "./queries/post";
+
 const Query = {
-    hello: () => "Data"
+    posts: getAllPosts
 }
 
 export default Query;
