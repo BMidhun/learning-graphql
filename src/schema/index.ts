@@ -6,14 +6,21 @@ const typeDefs = gql`
  }
 
  type Mutation {
-   postCreate(title:String!, content:String!):PostCreateResponse
+   postCreate(input:PostInput!):PostCreateUpdateResponse
+   postUpdate(postId: ID!,input:PostInput!):PostCreateUpdateResponse
+ }
+
+
+ input PostInput {
+   title: String
+   content: String
  }
 
  type ErrorMessage {
    message: String!
  }
 
- type PostCreateResponse {
+ type PostCreateUpdateResponse {
    errors: [ErrorMessage!]!
    post:Post
  }
