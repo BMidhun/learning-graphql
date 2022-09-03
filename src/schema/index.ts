@@ -9,8 +9,13 @@ const typeDefs = gql`
    postCreate(input:PostInput!):PostPayloadResponse
    postUpdate(postId: ID!,input:PostInput!):PostPayloadResponse
    postDelete(postId:ID!):PostPayloadResponse
+   signUp(email:String!, password:String! name:String!, bio:String!):SignUpPayloadResponse
  }
 
+ type SignUpPayloadResponse {
+  errors: [ErrorMessage!]!
+  token: String
+ }
 
  input PostInput {
    title: String

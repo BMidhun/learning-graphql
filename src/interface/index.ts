@@ -16,9 +16,21 @@ interface postUpdateArgs extends ICreateUpdatePostArgs {
     postId: string
 }
 
+interface ISignUpArgs {
+  email:string
+  password:string
+  bio:string
+  name:string
+}
+
 interface IPostPayloadResponse {
   errors: { message: string }[];
   post: Post | null;
 }
 
-export { IContext, ICreateUpdatePostArgs, IPostPayloadResponse, postUpdateArgs};
+interface ISignUpPayloadResponse {
+  errors: { message: string }[];
+  token: string | null;
+}
+
+export { IContext, ICreateUpdatePostArgs, IPostPayloadResponse, postUpdateArgs, ISignUpArgs, ISignUpPayloadResponse};
