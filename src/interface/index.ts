@@ -1,4 +1,4 @@
-import {Prisma, PrismaClient} from "@prisma/client"
+import {Post, Prisma, PrismaClient} from "@prisma/client"
 
 
 interface IContext {
@@ -10,4 +10,9 @@ interface ICreatePostArgs {
     content:string
 }
 
-export {IContext, ICreatePostArgs}
+interface ICreatePostResponse {
+    errors: {message:string}[]
+    post:Post | null
+}
+
+export {IContext, ICreatePostArgs, ICreatePostResponse}
