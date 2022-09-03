@@ -3,8 +3,14 @@ import { IContext, ICreateUpdatePostArgs, IPostPayloadResponse, postUpdateArgs }
 async function postCreate(parent:any, args:ICreateUpdatePostArgs, context:IContext):Promise<IPostPayloadResponse> {
 
     try {
-        const {dbClient} = context;
+        const {dbClient, userInfo} = context;
         const {input:{title,content}} = args;
+
+
+        if(!userInfo) {
+            const message = "Unauthorized";
+            return {errors:[{message}], post:null}
+        }
 
         if(!title || !content){
             const message = "Please provide both title and content to create a post."
@@ -15,7 +21,7 @@ async function postCreate(parent:any, args:ICreateUpdatePostArgs, context:IConte
             data:{
                 title,
                 content,
-                authorId:1
+                authorId:userInfo.userId
             }
         });
 
@@ -31,8 +37,15 @@ async function postCreate(parent:any, args:ICreateUpdatePostArgs, context:IConte
 
 
 async function postUpdate(parent:any,args: postUpdateArgs ,context:IContext):Promise<IPostPayloadResponse> {
-    const {dbClient} = context
+    const {dbClient,userInfo} = context
     const {postId, input:{title, content}} = args;
+
+    
+    if(!userInfo) {
+        const message = "Unauthorized";
+        return {errors:[{message}], post:null}
+    }
+
 
     if(!title && !content) {
         return {errors:[{message:"Please provide either title or content"}], post:null}
@@ -46,15 +59,22 @@ async function postUpdate(parent:any,args: postUpdateArgs ,context:IContext):Pro
 
     const payload = {title:title ? title : existingPost.title, content: content ? content : existingPost.content}
  
-    const post = await dbClient.post.update({data:{...payload}, where: {id:Number(postId)}})
+    const post = await dbClient.post.update({data:{...payload}, where:{id:Number(postId)}})
 
     return {errors:[], post}
 
 }
 
 async function postDelete(parent:any, args:{postId:string}, context:IContext):Promise<IPostPayloadResponse> {
-    const {dbClient} = context
+    const {dbClient, userInfo} = context
     const {postId} = args;
+
+    
+    if(!userInfo) {
+        const message = "Unauthorized";
+        return {errors:[{message}], post:null}
+    }
+
 
     const postExists = await dbClient.post.findUnique({where:{id:Number(postId)}})
 

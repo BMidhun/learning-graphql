@@ -6,6 +6,11 @@ interface IContext {
     never,
     Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
   >;
+  userInfo:IUserInfo
+}
+
+interface IUserInfo {
+  userId:number
 }
 
 interface ICreateUpdatePostArgs {
@@ -37,4 +42,4 @@ interface ISignUpSignInPayloadResponse {
   token: string | null;
 }
 
-export { IContext, ICreateUpdatePostArgs, IPostPayloadResponse, postUpdateArgs, ISignUpArgs, ISignUpSignInPayloadResponse, ICredential};
+export { IContext, ICreateUpdatePostArgs, IPostPayloadResponse, postUpdateArgs, ISignUpArgs, ISignUpSignInPayloadResponse, ICredential, IUserInfo};
