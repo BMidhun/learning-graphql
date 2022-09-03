@@ -1,4 +1,5 @@
 import { IContext, ICreateUpdatePostArgs, IPostPayloadResponse, postUpdateArgs } from "../../interface";
+import canUserMutate from "../../utils/can-user-mutate";
 
 async function postCreate(parent:any, args:ICreateUpdatePostArgs, context:IContext):Promise<IPostPayloadResponse> {
 
@@ -46,6 +47,11 @@ async function postUpdate(parent:any,args: postUpdateArgs ,context:IContext):Pro
         return {errors:[{message}], post:null}
     }
 
+    const error = await canUserMutate(Number(postId), userInfo.userId, dbClient);
+
+    if(error)
+        return error;
+
 
     if(!title && !content) {
         return {errors:[{message:"Please provide either title or content"}], post:null}
@@ -75,6 +81,11 @@ async function postDelete(parent:any, args:{postId:string}, context:IContext):Pr
         return {errors:[{message}], post:null}
     }
 
+    
+    const error = await canUserMutate(Number(postId), userInfo.userId, dbClient);
+
+    if(error)
+        return error;
 
     const postExists = await dbClient.post.findUnique({where:{id:Number(postId)}})
 
