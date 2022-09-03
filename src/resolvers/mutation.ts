@@ -1,8 +1,9 @@
-import { postCreate, postUpdate } from "./mutations/post";
+import { postCreate, postDelete, postUpdate } from "./mutations/post";
 
 const Mutation = {
     postCreate,
-    postUpdate
+    postUpdate,
+    postDelete
 }
 
 
