@@ -1,10 +1,13 @@
-import { postCreate, postDelete, postUpdate } from "./mutations/post";
+import { postCreate, postDelete, postPublish, postUnPublish, postUpdate } from "./mutations/post";
 import { signIn, signUp } from "./mutations/user";
 
 const Mutation = {
     postCreate,
     postUpdate,
     postDelete,
+    postPublish,
+    postUnPublish,
+    
     signUp,
     signIn
 }

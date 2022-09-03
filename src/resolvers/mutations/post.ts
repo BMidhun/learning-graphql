@@ -87,16 +87,55 @@ async function postDelete(parent:any, args:{postId:string}, context:IContext):Pr
     if(error)
         return error;
 
-    const postExists = await dbClient.post.findUnique({where:{id:Number(postId)}})
-
-    if(!postExists)
-        return {errors:[{message:"Post doesn't exist"}], post:null }
-
     const post = await dbClient.post.delete({where:{id:Number(postId)}});
 
     return {errors:[], post}
-
 }
 
 
-export {postCreate, postUpdate, postDelete}
+async function postPublish(parent:any, args:{postId:string}, context:IContext):Promise<IPostPayloadResponse> {
+    const {dbClient, userInfo} = context
+    const {postId} = args;
+
+    
+    if(!userInfo) {
+        const message = "Unauthorized";
+        return {errors:[{message}], post:null}
+    }
+
+    
+    const error = await canUserMutate(Number(postId), userInfo.userId, dbClient);
+
+    if(error)
+        return error;
+
+
+    const post = await dbClient.post.update({where:{id:Number(postId)}, data:{published:true}});
+
+    return {errors:[], post}
+}
+
+
+async function postUnPublish(parent:any, args:{postId:string}, context:IContext):Promise<IPostPayloadResponse> {
+    const {dbClient, userInfo} = context
+    const {postId} = args;
+
+    
+    if(!userInfo) {
+        const message = "Unauthorized";
+        return {errors:[{message}], post:null}
+    }
+
+    
+    const error = await canUserMutate(Number(postId), userInfo.userId, dbClient);
+
+    if(error)
+        return error;
+
+
+    const post = await dbClient.post.update({where:{id:Number(postId)}, data:{published:false}});
+
+    return {errors:[], post}
+}
+
+export {postCreate, postUpdate, postDelete, postPublish, postUnPublish}
