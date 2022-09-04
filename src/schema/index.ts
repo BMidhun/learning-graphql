@@ -47,6 +47,7 @@ const typeDefs = gql`
    id:ID!
    bio:String!
    user: User!
+   posts:[Post!]!
  }
 
  type Post {
