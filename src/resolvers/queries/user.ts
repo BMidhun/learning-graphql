@@ -39,7 +39,7 @@ async function getUserFromProfile(parent:IUserParent, args:any, context:IContext
 
 }
 
-async function getPostsByUser(parent:{id:number}, args:{take:number, skip:number}, context:IContext): Promise<Post[]> {
+async function getPostsFromUser(parent:{id:number}, args:{take:number, skip:number}, context:IContext): Promise<Post[]> {
     const {userInfo,dbClient} = context;
     const {id} = parent;
     const {take,skip} = args
@@ -68,4 +68,4 @@ async function getPostsFromProfile(parent:{userId:number}, args:{take:number, sk
 }
 
 
-export {me, profile, getUserFromProfile, getPostsFromProfile, getPostsByUser};
+export {me, profile, getUserFromProfile, getPostsFromProfile, getPostsFromUser};

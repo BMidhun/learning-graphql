@@ -1,7 +1,7 @@
-import { getPostsByUser } from "./queries/user";
+import { getPostsFromUser } from "./queries/user";
 
 const User = {
-    posts: getPostsByUser
+    posts: getPostsFromUser
 }
 
 export default User;
