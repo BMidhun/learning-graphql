@@ -1,4 +1,5 @@
 import { Post, User } from "@prisma/client";
+import { userLoader } from "../../app-data-loaders/user-loader";
 import { IContext } from "../../interface";
 
 async function getAllPosts (parent:any, args:any, context:IContext):Promise<Post[]> {
@@ -16,14 +17,15 @@ interface IParentGetAuthorPost {
 }
 
 async function getAuthorByPost(parent:IParentGetAuthorPost, args:any, context:IContext): Promise<User | null> {
-    const {dbClient} = context;
     const {authorId} = parent;
-    
-    const user = await dbClient.user.findUnique({where:{id:authorId}})
+    // const {dbClient} = context;
 
-    return user;
+    // const user = await dbClient.user.findUnique({where:{id:authorId}})
 
-    
+    const user = userLoader.load(authorId);
+
+    return user; 
+
 }
 
 export {getAllPosts, getAuthorByPost}
