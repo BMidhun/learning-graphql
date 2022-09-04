@@ -1,9 +1,10 @@
 import { getAllPosts } from "./queries/post";
-import { me } from "./queries/user";
+import { me, profile } from "./queries/user";
 
 const Query = {
     posts: getAllPosts,
-    me
+    me,
+    profile
 }
 
 export default Query;
