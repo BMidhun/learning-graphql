@@ -3,7 +3,7 @@ import {gql} from "apollo-server"
 const typeDefs = gql`
  type Query {
     me: User
-    posts: [Post!]!
+    posts(take:Int!, skip:Int!): [Post!]!
     profile(userId:ID!): Profile
  }
 
@@ -47,7 +47,7 @@ const typeDefs = gql`
    id:ID!
    bio:String!
    user: User!
-   posts:[Post!]!
+   posts(take:Int!, skip:Int!): [Post!]!
  }
 
  type Post {
@@ -63,6 +63,7 @@ const typeDefs = gql`
    id:ID!
    email:String!
    name:String!
+   posts(take:Int!, skip:Int!): [Post!]!
  }
 `
 

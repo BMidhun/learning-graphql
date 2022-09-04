@@ -2,10 +2,12 @@ import { Post, User } from "@prisma/client";
 import { userLoader } from "../../app-data-loaders/user-loader";
 import { IContext } from "../../interface";
 
-async function getAllPosts (parent:any, args:any, context:IContext):Promise<Post[]> {
+async function getAllPosts (parent:any, args:{take:number, skip:number}, context:IContext):Promise<Post[]> {
     const {dbClient} = context
+    const {take,skip} = args;
+
     const posts = await dbClient.post.findMany({
-        orderBy:[{createdAt:"desc"}], where:{published:true}
+        orderBy:[{createdAt:"desc"}], where:{published:true}, skip, take
     }) 
 
     return posts;

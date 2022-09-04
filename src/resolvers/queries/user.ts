@@ -39,19 +39,33 @@ async function getUserFromProfile(parent:IUserParent, args:any, context:IContext
 
 }
 
-
-
-async function getPostsFromProfile(parent:{userId:number}, args:any, context:IContext): Promise<Post[]> {
+async function getPostsByUser(parent:{id:number}, args:{take:number, skip:number}, context:IContext): Promise<Post[]> {
     const {userInfo,dbClient} = context;
-    const {userId} = parent;
+    const {id} = parent;
+    const {take,skip} = args
 
-    if(userInfo?.userId === Number(userId)){
-        return await dbClient.post.findMany({where:{authorId:Number(userId)}, orderBy:[{createdAt:"desc"}]});
+    if(userInfo?.userId === id){
+        return await dbClient.post.findMany({where:{authorId:id}, orderBy:[{createdAt:"desc"}], skip, take});
     }
 
-    return await dbClient.post.findMany({where:{authorId:Number(userId), published:true}, orderBy:[{createdAt:"desc"}]});
+    return await dbClient.post.findMany({where:{authorId:id, published:true}, orderBy:[{createdAt:"desc"}], skip, take});
 
 }
 
 
-export {me, profile, getUserFromProfile, getPostsFromProfile};
+
+async function getPostsFromProfile(parent:{userId:number}, args:{take:number, skip:number}, context:IContext): Promise<Post[]> {
+    const {userInfo,dbClient} = context;
+    const {userId} = parent;
+    const {take,skip} = args
+
+    if(userInfo?.userId === Number(userId)){
+        return await dbClient.post.findMany({where:{authorId:Number(userId)}, orderBy:[{createdAt:"desc"}], skip, take});
+    }
+
+    return await dbClient.post.findMany({where:{authorId:Number(userId), published:true}, orderBy:[{createdAt:"desc"}], skip, take});
+
+}
+
+
+export {me, profile, getUserFromProfile, getPostsFromProfile, getPostsByUser};
