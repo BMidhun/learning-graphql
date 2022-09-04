@@ -1,7 +1,8 @@
-import { getUserFromProfile } from "./queries/user";
+import { getPostsFromProfile, getUserFromProfile } from "./queries/user";
 
 const Profile = {
-    user : getUserFromProfile
+    user : getUserFromProfile,
+    posts: getPostsFromProfile
 } 
 
 

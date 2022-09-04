@@ -1,4 +1,4 @@
-import { Profile, User } from "@prisma/client";
+import { Post, Profile, User } from "@prisma/client";
 import dbClient from "../../db.config";
 import { IContext } from "../../interface";
 
@@ -40,4 +40,18 @@ async function getUserFromProfile(parent:IUserParent, args:any, context:IContext
 }
 
 
-export {me, profile, getUserFromProfile};
+
+async function getPostsFromProfile(parent:{userId:number}, args:any, context:IContext): Promise<Post[]> {
+    const {userInfo,dbClient} = context;
+    const {userId} = parent;
+
+    if(userInfo?.userId === Number(userId)){
+        return await dbClient.post.findMany({where:{authorId:Number(userId)}, orderBy:[{createdAt:"desc"}]});
+    }
+
+    return await dbClient.post.findMany({where:{authorId:Number(userId), published:true}, orderBy:[{createdAt:"desc"}]});
+
+}
+
+
+export {me, profile, getUserFromProfile, getPostsFromProfile};

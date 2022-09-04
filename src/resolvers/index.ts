@@ -3,7 +3,6 @@ import Mutation from "./mutation";
 import Profile from "./profile";
 import Post from "./post";
 
-
 const resolvers = {
     Query,
     Profile,
