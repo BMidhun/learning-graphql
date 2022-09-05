@@ -47,11 +47,13 @@ p {
 
 a {
   text-decoration: none;
+  color:inherit;
 }
+
 
 a:visited, a:link, a:focus {
    text-decoration: none;
-   color: rgb(125, 28, 204);
+   color:inherit;
 }
 
 br {
@@ -63,4 +65,8 @@ br {
 
 .my-2 {
   margin:2rem 0;
+}
+
+ul{
+  list-style: none;
 }

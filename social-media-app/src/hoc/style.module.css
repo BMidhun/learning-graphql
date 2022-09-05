@@ -1,0 +1,52 @@
+.auth-layout{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-size: 1.4rem;
+    padding: 8rem;
+}
+
+.auth-list{
+  
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    align-items: center;
+    border: 1px solid #eee;
+
+}
+
+.auth-list-item{
+    flex-grow: 1;
+    text-align: center;
+    padding: 1rem;
+}
+
+.auth-list-item a {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    color:#aaa;
+}
+
+.auth-list-item a:hover{
+    padding: 1rem;
+    background:#442e87;
+    color:#fff
+}
+
+ .active-auth-link{
+    flex-grow: 1;
+    text-align: center;
+    border: 1px solid #4444;
+    padding: 1rem;
+    background:#442e87;
+    color:#fff !important;
+}
+
+.auth-content{
+    flex-grow: 1;
+    padding: 1rem;
+    box-shadow: 3px 3px 14px 6px #0001;
+    margin-top: 1rem;
+}
