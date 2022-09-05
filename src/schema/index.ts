@@ -47,6 +47,7 @@ const typeDefs = gql`
    id:ID!
    bio:String!
    user: User!
+   isMyProfile:Boolean!
    posts(take:Int!, skip:Int!): [Post!]!
  }
 

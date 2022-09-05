@@ -13,12 +13,23 @@ async function me(parent:any, args:any , context:IContext): Promise<User | null>
 
 }
 
-async function profile(parent:any, args:{userId: string}, context:IContext): Promise<Profile | null> {
+interface IProfilePayload extends Profile {
+    isMyProfile:boolean
+}
 
-    const {dbClient} = context;
+async function profile(parent:any, args:{userId: string}, context:IContext): Promise<IProfilePayload | null> {
+
+    const {dbClient, userInfo} = context;
     const {userId} = args;
 
-    return await dbClient.profile.findUnique({where:{userId:Number(userId)}})
+    let isMyProfile = userInfo?.userId === Number(userId);
+
+    const profile = await dbClient.profile.findUnique({where:{userId:Number(userId)}})
+
+    if(!profile)
+        return null
+    
+    return {...profile, isMyProfile}
     
 }
 

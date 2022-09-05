@@ -11,6 +11,7 @@ import styles from "./style.module.css";
 interface IProfileData {
   id: number;
   bio: string;
+  isMyProfile:boolean
   user: {
     name: string;
   };
@@ -37,6 +38,7 @@ const GET_USER_PROFILE = gql`
     profile(userId: $userId) {
       id
       bio
+      isMyProfile
       user {
         name
       }
@@ -55,8 +57,7 @@ const TAKE = 10;
 function Profile() {
   const { id } = useParams();
   const [skip, setSkip] = useState(0);
-  const [showModal,setShowModal] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
 
   const { loading, error, data } = useQuery<IProfile, QueryVars>(
     GET_USER_PROFILE,
@@ -75,17 +76,19 @@ function Profile() {
 
   if (error) return <div>{JSON.stringify(error)}</div>;
 
+  if (!data) return <div>User not found</div>;
+
   return (
     <div className={styles["profile"]}>
-      {data && (
-        <ProfileHeader
-          username={data.profile.user.name}
-          bio={data.profile.bio}
-          openModal={openModal}
-        />
-      )}
+      <ProfileHeader
+        username={data.profile.user.name}
+        bio={data.profile.bio}
+        openModal={openModal}
+        isMyProfile={data.profile.isMyProfile}
+      />
+
       <div className={styles["posts-wrapper"]}>
-        {data ? (
+        {data.profile.posts ? (
           data.profile.posts?.map((_post) => {
             return (
               <PostCard
@@ -95,13 +98,15 @@ function Profile() {
                 title={_post.title}
                 username={data.profile.user.name}
                 createdAt={_post.createdAt}
+                isMyProfile={data.profile.isMyProfile}
               />
             );
           })
         ) : (
-          <div>No post available</div>
+          <div>No posts available</div>
         )}
       </div>
+
       <Modal showModal={showModal} title={"Add Post"} onClose={closeModal}>
         <CreatePostForm />
       </Modal>

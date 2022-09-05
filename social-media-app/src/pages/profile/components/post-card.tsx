@@ -8,9 +8,10 @@ interface IProps {
   title:string
   content:string
   id:number
+  isMyProfile:boolean
 }
 
-function PostCard({username, createdAt, title, content, id}:IProps) {
+function PostCard({username, createdAt, title, content, id, isMyProfile}:IProps) {
   return (
     <div className={styles["post-card"]}>
     <div className={styles["post-header"]}>
@@ -24,7 +25,7 @@ function PostCard({username, createdAt, title, content, id}:IProps) {
     </div>
 
     <div className={styles["post-footer"]}>
-    <Button onClick={() => null}>Publish Post</Button>
+    {isMyProfile && <Button onClick={() => null}>Publish Post</Button>}
     </div>
   </div>
   )
