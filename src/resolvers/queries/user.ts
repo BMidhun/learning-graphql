@@ -33,7 +33,6 @@ interface IUserParent {
 async function getUserFromProfile(parent:IUserParent, args:any, context:IContext): Promise<User | null> {
     const {userId} = parent;
 
-    console.log(typeof userId);
 
     return await dbClient.user.findUnique({where:{id:userId}})
 

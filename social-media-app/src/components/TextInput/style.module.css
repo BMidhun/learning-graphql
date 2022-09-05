@@ -1,0 +1,14 @@
+.text-input{
+    display: block;
+    padding: 0.8rem 1rem;
+    outline: none;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.text-input:focus{
+    border: 2px solid rgb(59, 103, 248);
+}
+

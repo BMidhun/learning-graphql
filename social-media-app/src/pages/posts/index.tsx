@@ -25,7 +25,7 @@ interface QueryInput {
 
 const GET_POST = gql`
   query($take:Int!, $skip:Int!){
-    posts(take: $take, skip:$skip){
+    posts(take:$take, skip:$skip){
       id
       title
       content
@@ -44,7 +44,6 @@ function Posts() {
 
  const {data,loading,error} = useQuery<IPosts, QueryInput>(GET_POST,{variables:{skip, take:TAKE}});
 
- console.log({data, loading, error})
  
  if(loading)
     return <div>Loading....</div>

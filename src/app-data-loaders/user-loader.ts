@@ -4,7 +4,6 @@ import dbClient from "../db.config";
 
 async function batchUser (ids:number[]): Promise<User[]> {
 
-    console.log(ids)
 
     // Note: The ids(userids in this case) we receive may not follow the same order when getting the users array from query.
     // That is ids = [1,2,5,3,6] user=[{id:2}, {id:3}, {id:1}, {id:5}]. We need to create userMap to map each id to user object and keep the same order.
