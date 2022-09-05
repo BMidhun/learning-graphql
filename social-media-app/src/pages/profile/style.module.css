@@ -28,6 +28,14 @@
     margin: 2rem 0rem;
 }
 
+.post-card-unpublished {
+    border-radius: 5px;
+    padding: 1rem;
+    font-size: 1.5rem;
+    margin: 2rem 0rem;
+    border: 1px solid red;
+}
+
 .post-card:hover{
     box-shadow: 1px 4px 8px 1px #0002;
 }

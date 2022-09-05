@@ -20,6 +20,7 @@ interface IProfileData {
     title: string;
     content: string;
     createdAt: string;
+    published:boolean
   }[];
 }
 
@@ -47,6 +48,7 @@ const GET_USER_PROFILE = gql`
         title
         content
         createdAt
+        published
       }
     }
   }
@@ -59,10 +61,14 @@ function Profile() {
   const [skip, setSkip] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
-  const { loading, error, data } = useQuery<IProfile, QueryVars>(
+  const { loading, error, data, refetch } = useQuery<IProfile, QueryVars>(
     GET_USER_PROFILE,
     { variables: { skip, take: TAKE, userId: id } }
   );
+
+  function loadProfile () {
+    refetch({skip,take:TAKE})
+  }
 
   function openModal() {
     setShowModal(true);
@@ -80,7 +86,7 @@ function Profile() {
 
   return (
     <div className={styles["profile"]}>
-      <ProfileHeader
+      {data.profile ? <><ProfileHeader
         username={data.profile.user.name}
         bio={data.profile.bio}
         openModal={openModal}
@@ -99,13 +105,15 @@ function Profile() {
                 username={data.profile.user.name}
                 createdAt={_post.createdAt}
                 isMyProfile={data.profile.isMyProfile}
+                published={_post.published}
+                loadProfile={loadProfile}
               />
             );
           })
         ) : (
           <div>No posts available</div>
         )}
-      </div>
+      </div> </>: <div>No User found 404</div> }
 
       <Modal showModal={showModal} title={"Add Post"} onClose={closeModal}>
         <CreatePostForm />

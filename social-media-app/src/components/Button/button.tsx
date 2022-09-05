@@ -4,11 +4,12 @@ import styles from "./style.module.css"
 interface IProps {
     onClick : () => void
     children: ReactNode
+    disabled?:boolean
 }
 
-function Button({onClick,children}:IProps) {
+function Button({onClick,children, disabled}:IProps) {
   return (
-    <button className={styles.btn} onClick={onClick}>
+    <button className={styles.btn} onClick={onClick} disabled={disabled}>
         {children}
     </button>
   )
