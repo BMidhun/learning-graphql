@@ -1,5 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import React, { FormEvent, useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/button'
 import TextInput from '../../components/TextInput/text-input'
 
@@ -41,6 +42,7 @@ function SignUp() {
     bio:""
   });
 
+  const navigate = useNavigate();
   const [postSignUp, { loading, data, error }] = useMutation<
   ISignUpResponse,
     MutationVariable
@@ -65,6 +67,7 @@ function SignUp() {
       if (data.signUp.token) {
         setFormError(null);
         localStorage.setItem("token", data.signUp.token);
+        navigate("/posts",{replace:true});
       }
     }
   }, [data]);

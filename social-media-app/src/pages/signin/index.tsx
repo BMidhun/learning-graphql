@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/button";
 import TextInput from "../../components/TextInput/text-input";
 
@@ -34,7 +35,7 @@ function SignIn() {
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const [formError, setFormError] = useState<string | null>(null);
 
   const [postLogin, { loading, data, error }] = useMutation<
@@ -51,6 +52,7 @@ function SignIn() {
       if (data.signIn.token) {
         setFormError(null);
         localStorage.setItem("token", data.signIn.token);
+        navigate("/posts",{replace:true});
       }
     }
   }, [data]);

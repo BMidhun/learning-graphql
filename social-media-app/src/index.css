@@ -1,11 +1,11 @@
 *,*::before,*::after{
   margin: 0px;
   padding: 0px;
-  box-sizing: border-box;
+  box-sizing:inherit;
 }
 
 html{
-  box-sizing: inherit;
+  box-sizing: border-box;
   font-size: 62.5%;
   height: 100%;
 }
