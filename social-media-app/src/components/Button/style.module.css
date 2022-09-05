@@ -1,13 +1,13 @@
 .btn{
     background: rgb(104, 25, 233);
     color:#eee;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
     display: inline-block;
     width: inherit;
     border: 1px solid #efefef;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 .btn:hover{

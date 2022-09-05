@@ -7,10 +7,12 @@ interface ITextInput{
     initialValue:string
     onHandleInput: (name:string,value:string) => void
     placeholder:string
+    type?:string
+    required?:boolean
 }
 
 
-function TextInput({name,initialValue,onHandleInput, placeholder}:ITextInput) {
+function TextInput({name,initialValue,onHandleInput, placeholder, type="text", required=false}:ITextInput) {
 
   const [value,setValue] = useState(initialValue);
 
@@ -21,7 +23,7 @@ function TextInput({name,initialValue,onHandleInput, placeholder}:ITextInput) {
     setValue(data);
   }
 
-  return <input type={"text"} name={name} value={value} onChange={onChange} className={styles["text-input"]} placeholder={placeholder}/>
+  return <input type={type} name={name} value={value} onChange={onChange} className={styles["text-input"]} placeholder={placeholder} required={required}/>
 }
 
 export default TextInput

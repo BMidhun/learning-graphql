@@ -12,10 +12,12 @@ function CreatePostForm() {
     formRef.current[name] = value;
   };
 
-  const onSubmit = () => { };
+  const onSubmit = (e:FormEvent) => { 
+    e.preventDefault();
+  };
 
   return (
-    <div>
+    <form>
       <div className="my-2">
         <TextInput
           initialValue=""
@@ -33,9 +35,9 @@ function CreatePostForm() {
         ></TextInput>
       </div>
       <div className="my-2">
-        <Button onClick={onSubmit}>Create Post</Button>
+        <Button onClick={() => null}>Create Post</Button>
       </div>
-    </div>
+    </form>
   );
 }
 
