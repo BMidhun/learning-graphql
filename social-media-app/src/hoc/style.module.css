@@ -50,3 +50,33 @@
     box-shadow: 3px 3px 14px 6px #0001;
     margin-top: 1rem;
 }
+
+.protected-routes-layout{
+    display: flex;
+    flex-direction: column;
+    height: 100%
+}
+
+.protected-route-header{
+    background: #4a78f7;
+    font-size: medium;
+    color: #fff;
+}
+
+.protected-route-nav {
+    display: flex;
+    padding: 1rem;
+}
+
+.protected-route-nav ul {
+    display: flex;
+    margin-left: auto;
+}
+.protected-route-nav ul li {
+    margin: 0rem 1rem;
+}
+
+.protected-route-content{
+    flex-grow: 1;
+    overflow: auto;
+}

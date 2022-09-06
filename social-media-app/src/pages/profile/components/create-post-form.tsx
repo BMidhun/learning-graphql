@@ -1,75 +1,54 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Button from "../../../components/Button/button";
 import TextInput from "../../../components/TextInput/text-input";
+import { ICreatePostResponse, IQueryVars } from "../interfaces";
+import { CREATE_POST } from "../queries";
 
-interface IPostData{
-  errors:{
-    message:string
-  }[];
-  post:{
-    id:number
-  }
-}
-
-interface ICreatePostResponse{
-  postCreate:IPostData;
-}
-
-interface IQueryVars {
-  input:{
-    title:string,
-    content:string
-  }
-}
-
-const CREATE_POST = gql`
- mutation createPost($input:PostInput!){
-  postCreate(input:$input) {
-    errors{
-      message
-    }
-    post{
-      id
-    }
-  }
- }
-`;
-
-
-function CreatePostForm({loadProfile, closeModal}:{loadProfile:() => void, closeModal:() => void}) {
-  console.log("Rendered")
+function CreatePostForm({
+  loadProfile,
+  closeModal,
+}: {
+  loadProfile: () => void;
+  closeModal: () => void;
+}) {
   const formRef = useRef<{ [key: string]: string }>({
     title: "",
     content: "",
   });
 
-  const [formError,setFormError] = useState<string | null>(null);
-  const [postCreate,{data,loading,error}] = useMutation<ICreatePostResponse,IQueryVars>(CREATE_POST);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [postCreate, { data, loading }] = useMutation<
+    ICreatePostResponse,
+    IQueryVars
+  >(CREATE_POST);
 
   useEffect(() => {
+    if (data) {
+      if (data.postCreate.errors.length) {
+        setFormError(data.postCreate.errors[0].message);
+      }
 
-    if(data) {
-       if(data.postCreate.errors.length){
-         setFormError(data.postCreate.errors[0].message);
-       }
-       
-       if(data.postCreate.post?.id) {
-         setFormError(null);
-         closeModal();
-       }
+      if (data.postCreate.post?.id) {
+        setFormError(null);
+        closeModal();
+      }
     }
-
-  },[data])
+  }, [data, closeModal]);
 
   const onHandleInput = (name: string, value: string) => {
     formRef.current[name] = value;
   };
 
-  const onSubmit = (e:FormEvent) => { 
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const {title,content} = formRef.current;
-    postCreate({variables:{input:{title,content}}, onCompleted : () => {loadProfile();}});
+    const { title, content } = formRef.current;
+    postCreate({
+      variables: { input: { title, content } },
+      onCompleted: () => {
+        loadProfile();
+      },
+    });
   };
 
   return (
@@ -90,9 +69,11 @@ function CreatePostForm({loadProfile, closeModal}:{loadProfile:() => void, close
           onHandleInput={onHandleInput}
         ></TextInput>
       </div>
-      {formError && <p style={{color:"red"}}>{formError}</p>}
+      {formError && <p style={{ color: "red" }}>{formError}</p>}
       <div className="my-2">
-        <Button onClick={() => null} disabled={loading}>{loading ? "Loading...":"Create Post"}</Button> 
+        <Button onClick={() => null} disabled={loading}>
+          {loading ? "Loading..." : "Create Post"}
+        </Button>
       </div>
     </form>
   );

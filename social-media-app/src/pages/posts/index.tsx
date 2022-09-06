@@ -1,41 +1,11 @@
-import {gql, useQuery} from "@apollo/client"
+import {useQuery} from "@apollo/client"
 import { useState } from "react"
 import Post from "./components/post"
+import { IPostData, IPosts, QueryInput } from "./interfaces"
+import { GET_POST } from "./queries"
 
 import styles from "./style.module.css"
 
-interface IPostData {
-  id:number
-  title:string
-  content:string
-  createdAt:string
-  author:{
-    name:string
-  }
-}
-
-interface IPosts {
-  posts: IPostData[]
-}
-
-interface QueryInput {
-  skip:number,
-  take:number
-}
-
-const GET_POST = gql`
-  query($take:Int!, $skip:Int!){
-    posts(take:$take, skip:$skip){
-      id
-      title
-      content
-      createdAt
-      author{
-        name
-      }
-    }
-  }
-`
 const TAKE = 10;
 
 function Posts() {

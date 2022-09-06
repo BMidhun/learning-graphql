@@ -1,36 +1,13 @@
-import { gql, useMutation } from "@apollo/client";
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import { useMutation } from "@apollo/client";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/button";
 import TextInput from "../../components/TextInput/text-input";
-
-interface ILoginData {
-  errors: { message: string }[];
-  token: string;
-}
-
-interface MutationVariable {
-  credentials: {
-    email: string;
-    password: string;
-  };
-}
-
-interface ILoginResponse {
-  signIn: ILoginData;
-}
+import { ILoginResponse, MutationVariable } from "./interfaces";
+import { LOGIN_ACTION } from "./queries";
 
 function SignIn() {
-  const LOGIN_ACTION = gql`
-    mutation login($credentials: CredentialInput!) {
-      signIn(credentials: $credentials) {
-        errors {
-          message
-        }
-        token
-      }
-    }
-  `;
+ 
   const formRef = useRef<{ [key: string]: string }>({
     email: "",
     password: "",
@@ -38,7 +15,7 @@ function SignIn() {
   const navigate = useNavigate();
   const [formError, setFormError] = useState<string | null>(null);
 
-  const [postLogin, { loading, data, error }] = useMutation<
+  const [postLogin, { loading, data }] = useMutation<
     ILoginResponse,
     MutationVariable
   >(LOGIN_ACTION);
@@ -55,7 +32,7 @@ function SignIn() {
         navigate("/posts",{replace:true});
       }
     }
-  }, [data]);
+  }, [data, navigate]);
 
   function onHandleInput(name: string, value: string) {
     formRef.current[name] = value;

@@ -1,37 +1,12 @@
 import { gql, useMutation } from '@apollo/client';
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/button'
 import TextInput from '../../components/TextInput/text-input'
+import { ISignUpResponse, MutationVariable } from './interfaces';
+import { SIGNUP_ACTION } from './queries';
 
-interface ISignUpData {
-  errors: { message: string }[];
-  token: string;
-}
 
-interface MutationVariable {
-  credentials: {
-    email: string;
-    password: string;
-  };
-  bio:string,
-  name:string
-}
-
-interface ISignUpResponse {
-  signUp: ISignUpData;
-}
-
-const SIGNUP_ACTION = gql`
- mutation signUp($credentials: CredentialInput!, $name: String!, $bio: String!) {
-  signUp(credentials: $credentials, name: $name, bio: $bio) {
-      errors{
-        message
-      }
-      token
-  }
- }
-`;
 
 function SignUp() {
   const [formError, setFormError] = useState<string | null>(null);
@@ -43,7 +18,7 @@ function SignUp() {
   });
 
   const navigate = useNavigate();
-  const [postSignUp, { loading, data, error }] = useMutation<
+  const [postSignUp, { loading, data }] = useMutation<
   ISignUpResponse,
     MutationVariable
   >(SIGNUP_ACTION);
@@ -70,7 +45,7 @@ function SignUp() {
         navigate("/posts",{replace:true});
       }
     }
-  }, [data]);
+  }, [data, navigate]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -87,7 +62,7 @@ function SignUp() {
        <TextInput name='bio' initialValue='' placeholder='Enter your bio' onHandleInput={ onHandleInput}  required={true}/>
     </div>
     <div className='my-2'>
-      <Button onClick={() => null}>Sign Up</Button>
+      <Button onClick={() => null} disabled={loading}>{loading ? "Loading..." : "Sign Up"}</Button>
     </div>
     {formError ? (
         <p className="my-2" style={{ color: "red" }}>
