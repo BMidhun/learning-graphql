@@ -17,7 +17,7 @@ function ProtectedRouteHOC({protectedRoute,children}:IProps):any {
     } 
 
     if((!protectedRoute && token)) {
-        return <><Navigate to="/home"/></>
+        return <><Navigate to="/posts"/></>
  } 
 
     return children;

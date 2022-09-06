@@ -33,6 +33,8 @@ useEffect(() => {
     },0)
   }
 
+  navigate("/posts");
+
   return () => {
      clearInterval(timer);
   }
@@ -42,7 +44,7 @@ useEffect(() => {
 
   return (
     <>
-    <div>{new Date(sessionTime).toISOString().slice(11,19)}</div>
+    <div className='session-time'>{new Date(sessionTime).toISOString().slice(11,19)}</div>
     <Outlet />
     </>
   )

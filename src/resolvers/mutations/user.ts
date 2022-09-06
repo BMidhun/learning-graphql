@@ -45,7 +45,7 @@ async function signIn(parent:any, args:{credentials:ICredential}, context:IConte
     if(!hasMatch)
         return {errors:[{message:"Invalid password"}], token:null}
 
-    const token = jwt.sign({userId:user.id}, SERVER_KEY,{expiresIn: "1h"});
+    const token = jwt.sign({userId:user.id}, SERVER_KEY,{expiresIn: 3600});
 
     return {errors:[], token}
     

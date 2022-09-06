@@ -38,9 +38,10 @@ function App() {
               </ProtectedRouteHOC>
             }
           ></Route>
-          <Route path="profile/:id" element={<Profile />}></Route>
-          <Route path="*" element={<Navigate to={"/posts"} />}></Route>
+          
         </Route>
+        <Route path="/profile/:id" element={<Profile />}></Route>
+        <Route path="*" element={<Navigate to={"/posts"} />}></Route>
       </Routes>
     </Router>
   );

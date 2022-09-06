@@ -23,7 +23,7 @@ function Modal({showModal, onClose, children, title}:IProps) {
           <div className={styles["modal"]}>
              <div className={styles["modal-header"]}>
               <h3>{title}</h3>
-              <Button onClick={onClose}>close</Button>
+              <Button onClick={onClose}>Close</Button>
              </div>
              <div className={styles["modal-body"]}>
               {children}

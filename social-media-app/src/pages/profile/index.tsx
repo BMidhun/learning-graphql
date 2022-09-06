@@ -116,7 +116,7 @@ function Profile() {
       </div> </>: <div>No User found 404</div> }
 
       <Modal showModal={showModal} title={"Add Post"} onClose={closeModal}>
-        <CreatePostForm />
+        <CreatePostForm loadProfile={loadProfile} closeModal={closeModal}/>
       </Modal>
     </div>
   );

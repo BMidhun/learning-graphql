@@ -70,3 +70,11 @@ br {
 ul{
   list-style: none;
 }
+
+.session-time{
+  padding: 1rem;
+  text-align: end;
+  background: blueviolet;
+  font-size: medium;
+  color: #fefefe;
+}
